@@ -64,7 +64,26 @@ app.use(express.json());
 // });
 // Yeh ek custom middleware tha jo har request ke time ko console karta tha, magar ab comment kiya gaya hai.
 
-const users = [];
+const users = [
+  {
+    data: {
+      title: "farhan",
+      id: 3,
+    },
+  },
+  {
+    data: {
+      title: "jawad",
+      id: 4,
+    },
+  },
+  {
+    data: {
+      title: "subhan",
+      id: 5,
+    },
+  },
+];
 
 app.get("/", (req, res) => {
   res.send("hello world!");
@@ -116,6 +135,40 @@ app.get("/user/:id", (req, res) => {
   });
 });
 
+app.delete("/user/:id", (req, res) => {
+  const { id } = req.params;
+  const index = users.findIndex((item) => item.id === +id);
+
+  if (index === -1) {
+    res.status(404).json({
+      message: "user not found",
+    });
+    return;
+  }
+  users.splice(index, 1);
+
+  res.status(200).json({
+    data: users,
+  });
+});
+app.put("/user/:id", (req, res) => {
+  const { id } = req.params;
+
+  const index = users.findIndex((item) => item.id === +id);
+  if (index === -1) {
+    res.status(404).json({ message: "User not found" });
+    return;
+  }
+  const { title } = req.body;
+  users[index].title = title;
+  console.log(users);
+
+  res.status(200).json({
+    message: "user updated",
+    title,
+  });
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
@@ -127,6 +180,5 @@ app.listen(port, () => {
 
 // 404 not found
 
-
-// res      jo hum mangwaraha ha database sa 
-// req      jo hum bhajraha ha database sa 
+// res      jo hum mangwaraha ha database sa
+// req      jo hum bhajraha ha database sa
