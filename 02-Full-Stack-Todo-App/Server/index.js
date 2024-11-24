@@ -13,8 +13,8 @@ app.get("/", (req, res) => {
   res.send("hello world");
 });
 const users = [
-  { id: 4, username: "abd" },
-  { id: 4, username: "usman" },
+  { id: 1, username: "abd" },
+  { id: 2, username: "usman" },
 ];
 
 app.get("/about", (req, res) => {
