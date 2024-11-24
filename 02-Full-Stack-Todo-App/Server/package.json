@@ -1,21 +1,20 @@
 {
-  "name": "mongodb",
+  "name": "backend-server-node",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "author": "jawad",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "cors": "^2.8.5",
+    "cron": "^3.2.1",
     "dotenv": "^16.4.5",
-    "express": "^4.21.1",
-    "mongoose": "^8.8.2"
+    "express": "^4.21.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
