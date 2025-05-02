@@ -76,22 +76,27 @@ const editTodo = async (req, res) => {
     return res.status(400).json({ error: "Not valid Id" });
   }
   const { title, description } = req.body;
-  try {
-    let updatetodo = await Todos.findByIdAndUpdate({
-      _id: id,
-      title,
-      description,
-      new: true,
+  if (!title || !description) {
+    res.status(400).json({
+      message: "You must enter both fields",
     });
-    if (!title || !description) {
-      res.status(400).json({
-        message: "You must enter both fields",
-      });
-      return;
-    }
+    return;
+  }
+  try {
+    let updatetodo = await Todos.findByIdAndUpdate(
+      id,
+      {
+        title,
+        description,
+      },
+      {
+        new: true,
+      }
+    );
+
     res.status(200).json({
       message: "todo edit successfully",
-      updatetodo,
+      updatetodo
     });
   } catch (error) {
     console.log(error);
