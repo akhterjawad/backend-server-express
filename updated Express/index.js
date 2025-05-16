@@ -1,26 +1,30 @@
 let express = require("express");
+require("dotenv").config();
+const { checktoken } = require("./checkTokenMiddleware");
 
 let app = express();
 app.use(express.json());
 
-let MyToken = "123456";
-let checktoken = (req, res, next) => {
-  if (req.query.token == "" || undefined) {
-    return res.send({
-      status: 400,
-      message: "token is required",
-    });
-  }
-  if (req.query.token == !MyToken) {
-    return res.send({
-      status: 400,
-      message: "token is not correct",
-    });
-  }
+console.log(process.env.myToken);
 
-  next();
-};
-app.use(checktoken); // middle were
+// let MyToken = "123456";
+// let checktoken = (req, res, next) => {
+//   if (req.query.token == "" || undefined) {
+//     return res.send({
+//       status: 400,
+//       message: "token is required",
+//     });
+//   }
+//   if (req.query.token == !MyToken) {
+//     return res.send({
+//       status: 400,
+//       message: "token is not correct",
+//     });
+//   }
+
+//   next();
+// };
+// app.use(checktoken); // middle were
 
 app.get("/", (req, res) => {
   res.send({
@@ -29,7 +33,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/News", (req, res) => {
+app.get("/News", checktoken, (req, res) => {
   res.send({
     status: 89,
     msg: "News working",
